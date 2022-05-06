@@ -1,0 +1,8 @@
+*{margin:0;padding:0}
+html, body,#root {
+  height:100%;
+  background: none;
+}
+body { margin:0 auto; font:normal normal normal 12px/150% Verdana; color:#333; }
+ul { list-style:none;margin:0;padding:0;}
+dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form { margin:0;padding:0;}
