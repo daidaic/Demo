@@ -2,13 +2,14 @@ import React, { useState } from "react";
 
 // import {Row,Col} from 'antd';
 import './index.less'
-import { Upload, message, Row, Col, Image, Spin,Avatar } from 'antd';
+import { Upload, message, Row, Col, Image, Spin,Avatar,Dropdown } from 'antd';
 import { InboxOutlined,UserOutlined } from '@ant-design/icons';
+import {Redirect,withRouter} from 'react-router-dom'
 
 const { Dragger } = Upload;
 
 
-export default function UploadImage() {
+ function UploadImage(props) {
 
   let [imgSrc, setImgSrc] = useState("")
 
@@ -51,6 +52,8 @@ export default function UploadImage() {
     })
   }
 
+  if(!localStorage.getItem("username")) return <Redirect to="/login" />;
+
   return (
     <Spin size="large" spinning={showSpin} tip="图片上传中...">
       <header>
@@ -64,7 +67,13 @@ export default function UploadImage() {
           </div>
           <div className="yy">
           <Avatar style={{marginRight:'12px'}} size="small" icon={<UserOutlined />} />
-          <span>Admin</span>
+          <Dropdown overlay={<div onClick={()=>{
+            localStorage.clear();
+            props.history.push('/')
+          }} style={{padding:'5px',backgroundColor:'#fff',cursor:'pointer'}}>退出</div>}>
+          <span>{localStorage.getItem('username')}</span>
+          </Dropdown>
+          
         </div>
         </div>
         
@@ -98,3 +107,5 @@ export default function UploadImage() {
     </Spin>
   )
 }
+
+export default withRouter(UploadImage)
